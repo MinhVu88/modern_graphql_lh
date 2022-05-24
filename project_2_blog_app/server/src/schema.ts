@@ -8,7 +8,16 @@ export const typeDefs = gql`
   type Mutation {
     postCreation(post: PostInput!): PostPayload!
     postUpdate(postId: ID!, post: PostInput!): PostPayload!
-    postDelete(postId: ID!): PostPayload!
+    postDeletion(postId: ID!): PostPayload!
+    postPublishing(postId: ID!): PostPayload!
+    postUnpublishing(postId: ID!): PostPayload!
+
+    userSignUp(
+      name: String!
+      bio: String!
+      credentials: UserCredentialsInput!
+    ): UserPayload!
+    userSignIn(credentials: UserCredentialsInput!): UserPayload!
   }
 
   type User {
@@ -34,17 +43,27 @@ export const typeDefs = gql`
     user: User!
   }
 
+  type Error {
+    message: String!
+  }
+
   type PostPayload {
     errors: [Error!]!
     post: Post
   }
 
-  type Error {
-    message: String!
+  type UserPayload {
+    errors: [Error!]!
+    token: String
   }
 
   input PostInput {
     title: String
     content: String
+  }
+
+  input UserCredentialsInput {
+    email: String!
+    password: String!
   }
 `;
