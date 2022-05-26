@@ -2,6 +2,8 @@ import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   type Query {
+    profile(userId: ID!): Profile
+    currentUser: User
     posts: [Post!]!
   }
 
@@ -24,8 +26,10 @@ export const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
-    profile: Profile!
     posts: [Post!]!
+
+    # this's a mistake. Query the profile & then get user info, not the other way around
+    # profile: Profile!
   }
 
   type Profile {
